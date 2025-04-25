@@ -59,10 +59,6 @@
   <meta charset="utf-8" />
   <title>SAPUI5 Outlook Add-in</title>
   <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
-  <script src="https://unpkg.com/turndown/dist/turndown.js"></script>
-  <script src="https://unpkg.com/dompurify@3.0.2/dist/purify.min.js"></script>
-
-
   <script
   id="sap-ui-bootstrap"
   src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
@@ -72,6 +68,8 @@
   data-sap-ui-resourceroots='{"taskpane": "./taskpane"}'
   data-sap-ui-onInit="module:taskpane/app">
 </script>
+  <script src="https://unpkg.com/turndown/dist/turndown.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sanitize-html@2.11.1/dist/sanitize-html.min.js"></script>
 </head>
 <body class="sapUiBody">
   <div id="content"></div>

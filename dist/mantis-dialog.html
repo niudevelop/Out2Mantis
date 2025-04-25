@@ -1,0 +1,26 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Mantis Dialog</title>
+</head>
+<body>
+  <h2>Select a Mantis Ticket</h2>
+  <select id="ticket">
+    <option value="123">Ticket #123</option>
+    <option value="124">Ticket #124</option>
+  </select>
+  <br/><br/>
+  <input type="text" id="comment" placeholder="Add a comment" />
+  <br/><br/>
+  <button onclick="submit()">Send to Parent</button>
+
+  <script>
+    function submit() {
+      const ticket = document.getElementById('ticket').value;
+      const comment = document.getElementById('comment').value;
+      const message = JSON.stringify({ ticket, comment });
+      Office.context.ui.messageParent(message);
+    }
+  </script>
+</body>
+</html>

@@ -18,11 +18,17 @@ module.exports = async (env, options) => {
     devtool: "source-map",
     entry: {
       polyfill: ["core-js/stable", "regenerator-runtime/runtime"],
-      taskpane: ["./src/taskpane/taskpane.js", "./src/taskpane/taskpane.html"],
+      // "taskpane/app": "./src/taskpane/app.js",
+      // "taskpane/app": ["./src/taskpane/app.js", "./src/taskpane/taskpane.html"],
+      // taskpane: ["./src/taskpane/taskpane.js", "./src/taskpane/taskpane.html"],
       commands: "./src/commands/commands.js",
     },
     output: {
       clean: true,
+      libraryTarget: "amd",
+      // library: "taskpane/app", // 👈 This names the AMD module explicitly
+      filename: "[name].js",
+      path: __dirname + "/dist",
     },
     resolve: {
       extensions: [".html", ".js"],
@@ -54,7 +60,14 @@ module.exports = async (env, options) => {
       new HtmlWebpackPlugin({
         filename: "taskpane.html",
         template: "./src/taskpane/taskpane.html",
-        chunks: ["polyfill", "taskpane"],
+        // chunks: ["polyfill", "taskpane"],
+        // chunks: ["polyfill", "taskpane/app"],
+        inject: false,
+      }),
+      new HtmlWebpackPlugin({
+        filename: "mantis-dialog.html",
+        template: "./src/dialogs/mantis-dialog.html",
+        chunks: [], //["polyfill", "mantis"],
       }),
       new CopyWebpackPlugin({
         patterns: [
@@ -73,6 +86,10 @@ module.exports = async (env, options) => {
               }
             },
           },
+          {
+            from: "./src/public/taskpane/app.js", // 👈 this is now raw, untouched by Webpack
+            to: "taskpane/app.js",
+          },
         ],
       }),
       new HtmlWebpackPlugin({
@@ -87,7 +104,10 @@ module.exports = async (env, options) => {
       },
       server: {
         type: "https",
-        options: env.WEBPACK_BUILD || options.https !== undefined ? options.https : await getHttpsOptions(),
+        options:
+          env.WEBPACK_BUILD || options.https !== undefined
+            ? options.https
+            : await getHttpsOptions(),
       },
       port: process.env.npm_package_config_dev_server_port || 3000,
     },

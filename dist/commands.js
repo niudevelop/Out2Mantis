@@ -1,3 +1,8 @@
+define(function() { return /******/ (function() { // webpackBootstrap
+var __webpack_exports__ = {};
+/*!**********************************!*\
+  !*** ./src/commands/commands.js ***!
+  \**********************************/
 /*
  * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
  * See LICENSE in the project root for license information.
@@ -5,22 +10,21 @@
 
 /* global Office */
 
-Office.onReady(() => {
+Office.onReady(function () {
   // If needed, Office.js is ready to be called.
   Office.actions.associate("openDialog", function (event) {
-    Office.context.ui.displayDialogAsync(
-      "https://localhost:3000/mantis-dialog.html",
-      { height: 50, width: 50 },
-      (result) => {
-        if (result.status === Office.AsyncResultStatus.Succeeded) {
-          const dialog = result.value;
-          dialog.addEventHandler(Office.EventType.DialogMessageReceived, (arg) => {
-            console.log("Received from dialog:", arg.message);
-            dialog.close();
-          });
-        }
+    Office.context.ui.displayDialogAsync("https://localhost:3000/mantis-dialog.html", {
+      height: 50,
+      width: 50
+    }, function (result) {
+      if (result.status === Office.AsyncResultStatus.Succeeded) {
+        var dialog = result.value;
+        dialog.addEventHandler(Office.EventType.DialogMessageReceived, function (arg) {
+          console.log("Received from dialog:", arg.message);
+          dialog.close();
+        });
       }
-    );
+    });
     event.completed();
   });
 });
@@ -51,3 +55,8 @@ function action(event) {
 
 // Register the function with Office.
 Office.actions.associate("action", action);
+/******/ 	return __webpack_exports__;
+/******/ })()
+;
+});;
+//# sourceMappingURL=commands.js.map
